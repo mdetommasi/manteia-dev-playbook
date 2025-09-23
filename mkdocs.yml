@@ -1,0 +1,35 @@
+site_name: Manteia AI Playbook
+site_description: Linee guida e blueprint per sviluppo AI production-grade (SCRUM, CI/CD, Agentic RAG, ReAct, MCP)
+site_author: Manteia
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+docs_dir: docs
+use_directory_urls: true
+nav:
+  - Home: index.md
+  - Visione: 00-vision.md
+  - Ways of Working: 01-ways-of-working.md
+  - Test: 02-testing-strategy.md
+  - CI/CD: 03-ci-cd.md
+  - MLOps & LLMOps: 04-mlops-llmops.md
+  - Security & Privacy: policies/05-security-privacy.md
+  - Observability: practices/06-observability.md
+  - LLM Testing: practices/07-llm-testing-playbook.md
+  - Blueprint:
+    - Agentic + ReAct: blueprints/10-agentic-arch-blueprint.md
+    - MCP: blueprints/11-mcp-playbook.md
+    - RAG: blueprints/12-rag-blueprint.md
+  - Policies:
+    - Release & Versioning: policies/08-release-versioning.md
+  - Runbooks:
+    - Incident Response: runbooks/incident-response.md
+  - Templates:
+    - ADR: template/13-adr-template.md
+    - Project structure: template/14-project-structure.md
+  - Onboarding: 09-onboarding-checklist.md
