@@ -19,7 +19,7 @@ jobs:
       - run: pip install mkdocs mkdocs-material
       - run: mkdocs build -d site
       - uses: actions/upload-pages-artifact@v3
-        with: { path: './site' }   # pacchetta l’output statico
+        with: { path: './site' }
   deploy:
     needs: build
     runs-on: ubuntu-latest
