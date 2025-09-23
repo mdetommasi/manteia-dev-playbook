@@ -2,24 +2,27 @@ name: deploy-docs
 on:
   push:
     branches: [ main ]
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: "pages"
   cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4        # checkout PRIMA di tutto
       - uses: actions/setup-python@v5
-        with: { python-version: '3.11', cache: 'pip' }
+        with: { python-version: '3.11' } # niente cache qui
       - run: pip install mkdocs mkdocs-material
       - run: mkdocs build -d site
       - uses: actions/upload-pages-artifact@v3
-        with: { path: './site' }
+        with: { path: './site' }         # pacchetta l'output per Pages
   deploy:
     needs: build
     runs-on: ubuntu-latest
