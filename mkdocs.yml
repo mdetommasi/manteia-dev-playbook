@@ -18,15 +18,15 @@ nav:
   - Test: testing-strategy.md
   - CI/CD: ci-cd.md
   - MLOps & LLMOps: mlops-llmops.md
-  - Security & Privacy: policies/05-security-privacy.md
-  - Observability: practices/06-observability.md
-  - LLM Testing: practices/07-llm-testing-playbook.md
+  - Security & Privacy: policies/security-privacy.md
+  - Observability: practices/observability.md
+  - LLM Testing: practices/llm-testing-playbook.md
   - Blueprint:
-    - Agentic + ReAct: blueprints/10-agentic-arch-blueprint.md
-    - MCP: blueprints/11-mcp-playbook.md
-    - RAG: blueprints/12-rag-blueprint.md
+    - Agentic + ReAct: blueprints/agentic-arch-blueprint.md
+    - MCP: blueprints/mcp-playbook.md
+    - RAG: blueprints/rag-blueprint.md
   - Policies:
-    - Release & Versioning: policies/08-release-versioning.md
+    - Release & Versioning: policies/release-versioning.md
   - Runbooks:
     - Incident Response: runbooks/incident-response.md
   - Templates:

@@ -31,15 +31,15 @@ Questo repository raccoglie linee guida, blueprint e template per costruire appl
 │  ├─ mlops-llmops.md
 │  ├─ onboarding-checklist.md
 │  ├─ blueprints/
-│  │  ├─ 10-agentic-arch-blueprint.md
-│  │  ├─ 11-mcp-playbook.md
-│  │  └─ 12-rag-blueprint.md
+│  │  ├─ agentic-arch-blueprint.md
+│  │  ├─ mcp-playbook.md
+│  │  └─ rag-blueprint.md
 │  ├─ policies/
-│  │  ├─ 05-security-privacy.md
-│  │  ├─ 07-data-prompt-governance.md
-│  │  └─ 08-release-versioning.md
+│  │  ├─ security-privacy.md
+│  │  ├─ data-prompt-governance.md
+│  │  └─ release-versioning.md
 │  ├─ practices/
-│  │  ├─ 06-observability.md
+│  │  ├─ observability.md
 │  │  ├─ coding-standards-python.md
 │  │  └─ coding-standards-typescript.md
 │  ├─ runbooks/
@@ -124,18 +124,18 @@ mkdocs serve
 - **PII:** classificazione, minimizzazione, masking in log.
 - **Supply-chain:** SBOM (Syft), scans CVE (Grype/TruVy), firma immagini (Cosign).
 - **Prompt/Data governance:** prompt card/dataset card, retention conversazioni.
-- Dettagli: **[policies/05-security-privacy.md](policies/05-security-privacy.md)**,  
-  **[policies/07-data-prompt-governance.md](policies/07-data-prompt-governance.md)**.
+- Dettagli: **[policies/security-privacy.md](policies/security-privacy.md)**,  
+  **[policies/data-prompt-governance.md](policies/data-prompt-governance.md)**.
 
 ---
 
 ## Blueprint architetturali
 - **Agentic RAG + ReAct:** coordinator agent, retriever ibrido, tools via MCP, osservabilità end-to-end.  
-  → **[blueprints/10-agentic-arch-blueprint.md](blueprints/10-agentic-arch-blueprint.md)**
+  → **[blueprints/agentic-arch-blueprint.md](blueprints/agentic-arch-blueprint.md)**
 - **MCP Playbook:** contratti, sicurezza, test di handshake.  
-  → **[blueprints/11-mcp-playbook.md](blueprints/11-mcp-playbook.md)**
+  → **[blueprints/mcp-playbook.md](blueprints/mcp-playbook.md)**
 - **RAG e2e:** ingest/index/query/synthesis/eval.  
-  → **[blueprints/12-rag-blueprint.md](blueprints/12-rag-blueprint.md)**
+  → **[blueprints/rag-blueprint.md](blueprints/rag-blueprint.md)**
 
 ---
 
@@ -150,7 +150,7 @@ mkdocs serve
 1. Crea una branch `feature/...` e apri una PR piccola.
 2. Assicurati che **CI sia verde** e aggiorna **docs/ADR** se necessario.
 3. Segui i **template PR/Issue** in `.github/`.
-4. Versioning: **SemVer** + **CHANGELOG** (vedi **[policies/08-release-versioning.md](policies/08-release-versioning.md)**).
+4. Versioning: **SemVer** + **CHANGELOG** (vedi **[policies/release-versioning.md](policies/release-versioning.md)**).
 
 ---
 
@@ -174,7 +174,7 @@ mkdocs serve
 ---
 
 ## Contatti
-- **Owner Playbook:** _Activity Owner_ / Tech Lead di riferimento  
+- **Owner Playbook:** _Maurizio De Tommasi_ / Tech Lead di riferimento  
 - **Canale interno:** `#manteia-ai-eng` (annunci, domande, proposte)
 - **Contribuzioni:** apri una issue/PR seguendo i template in `.github/`
 
