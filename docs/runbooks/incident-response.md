@@ -63,13 +63,14 @@ IC: <nome>; On-call: <nome>; War room: #war-incident-20250923-1015
 
 ## 4) Mitigazione (stabilizza prima di investigare)
 **Opzioni comuni (scegli in base al sintomo):**
+
 - **Rollback** ultima release *o* **freeze canary** (resta al 0–10%).  
-  - Helm: `helm rollback <rel> <rev>`  
-  - Argo CD: `argocd app rollback <app> <rev>`  
-  - Kubectl: `kubectl rollout undo deploy/<svc>`
+    - Helm: `helm rollback <rel> <rev>`  
+    - Argo CD: `argocd app rollback <app> <rev>`  
+    - Kubectl: `kubectl rollout undo deploy/<svc>`
 - **Feature flag kill switch** sulla funzionalità/agent incriminato.
 - **Rate-limit / shed load** (tenant-based o globale).  
-  - Gateway: abbassa RPS, imposta `429 + Retry-After`.
+    - Gateway: abbassa RPS, imposta `429 + Retry-After`.
 - **Riduzione costi/risorse** (incidenti di saturazione): diminuisci `max_new_tokens`, **disabilita tool non essenziali**, alza soglie di cache.
 - **Isolamento tenant** (multi-tenant): taglia traffico verso tenant-fonte di attacco/abuso, preservando gli altri.
 - **Guardrail hardening** per incidenti *content-safety/PII*: abilita filtri severi, forza output JSON schema, disattiva tool scrittura esterna.
@@ -80,6 +81,7 @@ IC: <nome>; On-call: <nome>; War room: #war-incident-20250923-1015
 
 ## 5) Diagnosi (quando l’impatto è sotto controllo)
 **Checklist dati**
+
 - **Metriche**: QPS, 5xx rate, p50/p95, tokens_in/out, cache_hit, tool_latency, vector_store_latency.
 - **Traces** (OTel): step agent (retrieve → synth → tool-call), errori/codici, tempi per span.
 - **Log**: errori recenti, spike, RI pattern; confronta *prima/dopo* release.
@@ -95,6 +97,7 @@ kubectl rollout history deploy/<svc> -n <ns>
 ```
 
 **LLM/RAG specifici**
+
 - Verifica **rotture prompt** (diff tra versioni), **drift embeddings** o schema vector store cambiato.
 - Controlla **guardrails** (schema JSON, PII filters) e **tool** (time-out/malfunzionamenti).
 
@@ -108,6 +111,7 @@ kubectl rollout history deploy/<svc> -n <ns>
 5. **Rimuovi mitigazioni temporanee** (rate-limit, flag, freeze), *una per volta* con controllo.
 
 **Checklist di pre‑merge (estratto)**
+
 - [ ] Test verdi (incl. LLM eval minima su scenari affetti)
 - [ ] Changelog/ADR aggiornati se necessario
 - [ ] Rollback plan pronto (versione precedente ancora deployabile)
@@ -116,6 +120,7 @@ kubectl rollout history deploy/<svc> -n <ns>
 
 ## 7) Postmortem (entro 48–72h) — blameless
 **Struttura consigliata**
+
 - **Titolo/ID**: INC-YYYY-#### — Severità
 - **Sintesi** (1–2 paragrafi) e impatto (utenti, % richieste, durata, costi)
 - **Timeline** (UTC/CET): eventi, segnali, decisioni, rollback/fix
@@ -189,6 +194,7 @@ features:
 ---
 
 ## 10) Ready-to-Use Checklist (stampabile)
+
 - [ ] IC nominato, war room aperta, ticket creato
 - [ ] Severità e blast radius definiti
 - [ ] Mitigazione iniziale attivata (rollback/freeze/flag/rate-limit)

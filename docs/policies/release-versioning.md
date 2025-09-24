@@ -160,6 +160,7 @@ Cadenza standard: **mercoledì** settimane pari (Europa/Roma).
 ## 9) Check-list di Release
 
 **Prima del tag**
+
 - [ ] CI verde (tutti i jobs)
 - [ ] Coverage ≥ soglia, zero test flakey noti
 - [ ] CHANGELOG aggiornato e rivisto
@@ -168,6 +169,7 @@ Cadenza standard: **mercoledì** settimane pari (Europa/Roma).
 - [ ] Note di release draftate (impatti, migrazioni, flag)
 
 **Dopo il tag**
+
 - [ ] Immagini firmate + SBOM pubblicata
 - [ ] Deploy in **staging**, smoke OK
 - [ ] Canary in produzione + monitoraggio 30–60’
