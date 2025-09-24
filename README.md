@@ -1,12 +1,16 @@
 # Manteia AI Engineering Playbook — v0.1
 
-**Data:** 2025-09-23
+**Date:** 2025-09-23
 
-Benvenuti nel playbook tecnico per il nuovo team AI di **Manteia**.  
-Questo repository raccoglie linee guida, blueprint e template per costruire applicazioni AI/ML production-grade con approcci **agili (SCRUM)**, **CI/CD**, **architetture open-source** e paradigmi moderni (**ReAct agents, agentic RAG, LLM open-source, Model Context Protocol**).
+Welcome to the comprehensive technical playbook for **Manteia's** AI team. This repository serves as the central hub for guidelines, architectural blueprints, and standardized templates designed to accelerate the development of production-grade AI/ML applications.
 
-## Struttura
-- `docs/` – manuali, policy, pratiche e blueprint architetturali
-- `.github/` – template per issue/PR e pipeline CI di esempio
+Our methodology integrates **agile development practices (SCRUM)**, **continuous integration and deployment (CI/CD)**, **open-source architectures**, and cutting-edge AI paradigms including **ReAct agents**, **agentic RAG systems**, **open-source LLMs**, and the **Model Context Protocol**.
 
-Per una panoramica rapida leggi **docs/00-vision.md** e **docs/01-ways-of-working.md**.
+## Repository Structure
+
+- `docs/` – Technical documentation, organizational policies, best practices, and architectural blueprints
+- `.github/` – Standardized templates for issues and pull requests, along with exemplary CI pipeline configurations
+
+## Purpose
+
+This playbook enables rapid, consistent, and scalable AI application development while maintaining enterprise-grade quality standards and operational excellence.
