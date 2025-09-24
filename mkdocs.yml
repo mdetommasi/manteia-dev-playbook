@@ -13,8 +13,8 @@ docs_dir: docs
 use_directory_urls: true
 nav:
   - Home: index.md
-  - Visione: 00-vision.md
-  - Ways of Working: 01-ways-of-working.md
+  - Visione: vision.md
+  - Ways of Working: ways-of-working.md
   - Test: 02-testing-strategy.md
   - CI/CD: 03-ci-cd.md
   - MLOps & LLMOps: 04-mlops-llmops.md

@@ -24,8 +24,8 @@ Questo repository raccoglie linee guida, blueprint e template per costruire appl
 ```text
 .
 ├─ docs/                      # manuali, policy, pratiche e blueprint
-│  ├─ 00-vision.md
-│  ├─ 01-ways-of-working.md
+│  ├─ vision.md
+│  ├─ ways-of-working.md
 │  ├─ 02-testing-strategy.md
 │  ├─ 03-ci-cd.md
 │  ├─ 04-mlops-llmops.md
@@ -58,7 +58,7 @@ Questo repository raccoglie linee guida, blueprint e template per costruire appl
 └─ README.md                   # questo file
 ```
 
-> Per una panoramica rapida leggi **[00-vision.md](00-vision.md)** e **[01-ways-of-working.md](01-ways-of-working.md)**.
+> Per una panoramica rapida leggi **[vision.md](vision.md)** e **[ways-of-working.md](ways-of-working.md)**.
 
 ---
 
@@ -89,7 +89,7 @@ mkdocs serve
 - **PR Policy:** 1 feature = 1 PR piccola, code review obbligatoria, **CI verde**.
 - **Issue Types:** feature, bug, tech-debt, research spike.
 - **DoD:** lint/format, type-check OK, test (≥80% quando sensato), docs/ADR aggiornate, observability minima.
-- Dettagli: **[01-ways-of-working.md](01-ways-of-working.md)**.
+- Dettagli: **[ways-of-working.md](ways-of-working.md)**.
 
 ---
 
