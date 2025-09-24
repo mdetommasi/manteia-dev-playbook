@@ -30,6 +30,6 @@ nav:
   - Runbooks:
     - Incident Response: runbooks/incident-response.md
   - Templates:
-    - ADR: template/13-adr-template.md
-    - Project structure: template/14-project-structure.md
+    - ADR: template/adr-template.md
+    - Project structure: template/project-structure.md
   - Onboarding: onboarding-checklist.md

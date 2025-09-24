@@ -77,7 +77,7 @@ mkdocs serve
 ```
 
 ### 3) Crea un progetto da template
-- Consulta **[template/14-project-structure.md](template/14-project-structure.md)**.
+- Consulta **[template/project-structure.md](template/project-structure.md)**.
 - Clona lo scheletro, imposta `<package>`/`<project_name>`, abilita CI.
 
 ---
