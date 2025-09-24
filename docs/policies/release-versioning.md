@@ -92,17 +92,20 @@ Esempio ridotto:
 Cadenza standard: **mercoledì** settimane pari (Europa/Roma).
 
 **Timeline tipo**
+
 - **T-3gg (Freeze Parziale)**: niente nuove feature rischiose; solo bugfix/finishing.
 - **T-2gg (RC)**: tag `vX.Y.Z-rc.1` su branch `release/X.Y`; deploy in **staging**, smoke & E2E.
 - **T-0 (Go/No-Go)**: se OK ⇒ tag **annotato e firmato** `vX.Y.Z` su `main`, promozione in produzione (canary/blue-green).
 
 **Ruoli**
+
 - **Release Manager** (A): coordina calendario, check-list, approvazioni.
 - **Tech Lead** (R): qualità tecnica, gating CI.
 - **QA** (R): test E2E e non-regressioni.
 - **PO** (A/C): scope e accettazione business.
 
 **Note**
+
 - Se CI non è verde, release posticipata o esclusione delle PR non conformi.
 - Feature non pronte restano dietro **flag** o rimandate alla successiva train.
 
@@ -116,6 +119,7 @@ Cadenza standard: **mercoledì** settimane pari (Europa/Roma).
 - Backport: merge **forward** in `main` e in branch di release attivi, aggiornando CHANGELOG.
 
 **SLA di massima**
+
 - P0: fix in ore, approvazione snella (1 reviewer + Release Manager).  
 - P1: entro 24–48h, percorso standard ma prioritario.
 

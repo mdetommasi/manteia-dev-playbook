@@ -45,6 +45,7 @@
 
 ## 3) Triage (entro i primi minuti)
 **Checklist rapida**
+
 1. **Nomina IC** e apri **war room**: `#war-incident-YYYYMMDD-HHMM` (Slack) + link Meet/Zoom.
 2. **Blast radius:** chi è impattato? (tenant, regione, prodotto). % richieste in errore, PII a rischio?
 3. **Severità preliminare** (P0–P3) e **ticket** (INC-YYYY-####).
@@ -53,6 +54,7 @@
 6. **Comms v0** (template sotto) con sintesi e prossimo aggiornamento (es. +15’).
 
 **Template messaggio iniziale**
+
 ```
 [INC-2025-0923-001][P1] Sintesi: aumento 5xx su /v1/chat (p95 +80%) dalle 10:14 CET.
 Impatto: ~35% richieste EU tenants A/B. Mitigazione in corso. Prossimo update: 10:30.
@@ -131,6 +133,7 @@ kubectl rollout history deploy/<svc> -n <ns>
 - **Allegati**: grafici, query, PR/commit, log redatti
 
 **Template 5 Whys (mini)**
+
 ```
 1. Perché è successo?
 2. Perché la causa 1 è stata possibile?
@@ -160,6 +163,7 @@ Impatto: 32% richieste EU tra 10:14–11:42. Azioni: fix rilasciato (v1.12.4), p
 
 ## 9) Playbook rapidi (estratti)
 **Rollback**
+
 ```bash
 # Helm
 helm history <release> -n <ns>
@@ -175,6 +179,7 @@ kubectl rollout undo deploy/<svc> -n <ns>
 ```
 
 **Rate-limit (gateway generico)**
+
 ```yaml
 # Esempio concettuale (Envoy/NGINX): 100 rps per tenant
 rate_limit:
