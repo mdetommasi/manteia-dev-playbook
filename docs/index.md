@@ -26,10 +26,10 @@ Questo repository raccoglie linee guida, blueprint e template per costruire appl
 ├─ docs/                      # manuali, policy, pratiche e blueprint
 │  ├─ vision.md
 │  ├─ ways-of-working.md
-│  ├─ 02-testing-strategy.md
-│  ├─ 03-ci-cd.md
-│  ├─ 04-mlops-llmops.md
-│  ├─ 09-onboarding-checklist.md
+│  ├─ testing-strategy.md
+│  ├─ ci-cd.md
+│  ├─ mlops-llmops.md
+│  ├─ onboarding-checklist.md
 │  ├─ blueprints/
 │  │  ├─ 10-agentic-arch-blueprint.md
 │  │  ├─ 11-mcp-playbook.md
@@ -65,7 +65,7 @@ Questo repository raccoglie linee guida, blueprint e template per costruire appl
 ## Come usare il playbook
 
 ### 1) Onboarding rapido
-- Segui **[09-onboarding-checklist.md](09-onboarding-checklist.md)**.
+- Segui **[onboarding-checklist.md](onboarding-checklist.md)**.
 - Configura pre-commit (ruff/black/mypy/eslint/prettier).
 - Esegui i test locali e verifica gli standard.
 
@@ -97,7 +97,7 @@ mkdocs serve
 - **Piramide:** Unit (~70%), Integration (~20%), E2E (~10%).
 - **LLM/Agent:** golden tests, schema/guardrails, adversarial (prompt injection/PII), eval (RAGAS/TruLens).
 - **Tooling:** pytest/coverage, testcontainers, VCR.py, Playwright, OpenTelemetry.
-- Dettagli: **[02-testing-strategy.md](02-testing-strategy.md)**.
+- Dettagli: **[testing-strategy.md](testing-strategy.md)**.
 
 ---
 
@@ -105,7 +105,7 @@ mkdocs serve
 - **CI (su PR):** lint/format (ruff, black, eslint), type-check (mypy/tsc), unit/integration test (pytest/vitest), coverage; security scans (bandit, pip-audit/npm audit, trivy); build immagine Docker.
 - **CD:** staging automatica su merge in `main`; canary/blue-green; migrazioni DB con rollback; feature flags.
 - **Artifact registry:** container, wheel/npm, dataset snapshot (DVC), modelli (MLflow).
-- Dettagli: **[03-ci-cd.md](03-ci-cd.md)**.
+- Dettagli: **[ci-cd.md](ci-cd.md)**.
 
 ---
 
@@ -115,7 +115,7 @@ mkdocs serve
 - **Serving LLM OSS:** vLLM/TGI/Ollama; throttling/quota.
 - **Vector store:** Qdrant/Weaviate/PgVector; re-embedding policy.
 - **Guardrail:** PII scrubber, schema output, content policy.
-- Dettagli: **[4-mlops-llmops.md](04-mlops-llmops.md)**.
+- Dettagli: **[4-mlops-llmops.md](mlops-llmops.md)**.
 
 ---
 

@@ -15,9 +15,9 @@ nav:
   - Home: index.md
   - Visione: vision.md
   - Ways of Working: ways-of-working.md
-  - Test: 02-testing-strategy.md
-  - CI/CD: 03-ci-cd.md
-  - MLOps & LLMOps: 04-mlops-llmops.md
+  - Test: testing-strategy.md
+  - CI/CD: ci-cd.md
+  - MLOps & LLMOps: mlops-llmops.md
   - Security & Privacy: policies/05-security-privacy.md
   - Observability: practices/06-observability.md
   - LLM Testing: practices/07-llm-testing-playbook.md
@@ -32,4 +32,4 @@ nav:
   - Templates:
     - ADR: template/13-adr-template.md
     - Project structure: template/14-project-structure.md
-  - Onboarding: 09-onboarding-checklist.md
+  - Onboarding: onboarding-checklist.md
