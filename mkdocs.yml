@@ -21,6 +21,7 @@ nav:
   - Security & Privacy: policies/security-privacy.md
   - Observability: practices/observability.md
   - LLM Testing: practices/llm-testing-playbook.md
+  - AI Coding Governance: practices/ai-coding-governance.md
   - Blueprint:
     - Agentic + ReAct: blueprints/agentic-arch-blueprint.md
     - MCP: blueprints/mcp-playbook.md

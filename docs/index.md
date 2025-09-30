@@ -41,7 +41,8 @@ Questo repository raccoglie linee guida, blueprint e template per costruire appl
 │  ├─ practices/
 │  │  ├─ observability.md
 │  │  ├─ coding-standards-python.md
-│  │  └─ coding-standards-typescript.md
+│  │  ├─ coding-standards-typescript.md
+│  │  └─ ai-coding-governance.md
 │  ├─ runbooks/
 │  │  └─ incident-response.md
 │  └─ templates/
