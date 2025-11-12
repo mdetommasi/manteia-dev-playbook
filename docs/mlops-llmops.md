@@ -13,6 +13,7 @@ Questa guida definisce pratiche, componenti e automazioni per portare in produzi
 ---
 
 ## 1) Scope & principi
+
 - **Riproducibilità** end‑to‑end (codice + dati + artefatti).
 - **Promozioni progressive** (Staging → Production) con **canary/blue‑green** e rollback.
 - **Osservabilità by default** (metriche/log/trace + costi).
@@ -22,11 +23,14 @@ Questa guida definisce pratiche, componenti e automazioni per portare in produzi
 ---
 
 ## 2) Data Versioning (DVC/LakeFS)
+
 Scegli tra:
+
 - **DVC**: controllo versione a livello di file/granularità dataset, remoto (S3/MinIO/Azure/GCS), pipeline `dvc.yaml`.
 - **LakeFS**: *git‑like* su oggetti (S3 compatibile), branch/tag/PR sui dati; ottimo per ambienti condivisi.
 
 ### 2.1 Setup DVC (esempio)
+
 ```bash
 dvc init
 dvc remote add -d storage s3://manteia-dvc # o minio://...
@@ -37,6 +41,7 @@ dvc push
 ```
 
 ### 2.2 Dataset Card (template minimo)
+
 ```markdown
 # Dataset Card — SAT3_EPS_v2025_09
 - **Fonte**: Telemetria EPS SAT3 (stream X)
@@ -49,17 +54,20 @@ dvc push
 ```
 
 ### 2.3 Lineage & checksum
+
 - Mantieni **manifest** (es. `manifest.json`) con **hash**, righe, range temporali.
 - In DVC usa `dvc.yaml` per dichiarare step (ETL → features → embeddings) e tracciare dipendenze/artefatti.
 
 ---
 
 ## 3) Model Registry (MLflow o equivalente)
+
 - **Run**: parametri, metriche e artefatti (confusion matrix, fig, token usage).
 - **Model**: versione con **signature/schema**, **conda/requirements** e **flavors**.
 - **Stages**: `None` → `Staging` → `Production` (→ `Archived`).
 
 ### 3.1 Logging & registrazione (esempio Python)
+
 ```python
 import mlflow
 from mlflow.models import infer_signature
@@ -74,44 +82,53 @@ with mlflow.start_run():
 ```
 
 ### 3.2 Promozione automatica (gate)
+
 - Promuovi a **Staging** se: *val_loss* < soglia, *eval* RAGAS/TruLens ok, **security checks** passati.
 - Promuovi a **Production** dopo **canary** ≥ N richieste con SLO rispettati.
 
 ---
 
 ## 4) LLM Serving & Inference Gateway
+
 - **vLLM**: throughput alto, paginazione KV‑cache, multi‑tenant.
 - **TGI (Text Generation Inference)**: server robusto per modelli Hugging Face.
 - **Ollama**: dev locale, modelli leggeri (es. Llama‑3.*‑instruct) per PoC.
 
 ### 4.1 Pattern di deploy
+
 - **Kubernetes** con HPA su **tokens/sec** o **QPS**; nodi GPU/CPU misti.
 - **Gateway** (reverse proxy) con **routing** per canary e **quota** per tenant.
 - **Caching**: prompt caching (exact/sim hash) per FAQ/template.
 
 ### 4.2 Quota & throttling (multi‑tenant)
+
 - Budget **tokens/month** e **RPS** per `tenant_id`.
 - **Leaky Bucket / Token Bucket** per rate‑limit (429 + `Retry-After`).
 - **Cost guard**: stop soft al 80%, hard al 100% (alert + blocco richieste extra).
 
 ### 4.3 Telemetria
+
 - Metriche: **latency p50/p95**, **tokens_in/out**, **errors**, **cache_hit**, **tool_latency** (per agent).
 - Trace OTel con **span** per: retrieval, generation, tool call, re‑rank.
 
 ---
 
 ## 5) Vector Store (Weaviate, Qdrant, PgVector)
+
 **Scelta rapida**:
+
 - **Weaviate**: schema‑first, module‑rich, cloud/self‑hosted.
 - **Qdrant**: HNSW + payload JSON potente, ottimo OSS.
 - **PgVector**: integrazione SQL, comodo se Postgres è già standard.
 
 ### 5.1 Schema & metadata
+
 - Collezioni per **dominio** e/o **tenant**: `kb_<tenant>_<domain>`.
 - Campi base: `id`, `text`, `embedding`, `source`, `chunk_id`, `doc_id`, `lang`, `acl`.
 - **TTL** su payload o *soft delete* con `deleted_at`.
 
 ### 5.2 Re‑embedding policy
+
 - Trigger:
   1. **Upgrade modello** (es. `text-embed-v2 → v3`).
   2. **Drift contenuti** (basso recall / alto self‑BLEU tra chunk vecchi/nuovi).
@@ -121,11 +138,13 @@ with mlflow.start_run():
   - Job batch notturni; priorità per documenti più richiesti.
 
 ### 5.3 Parametri indice (esempi)
+
 - Qdrant HNSW: `ef_construct=128`, `m=16`, `ef=64` (query).
 - Weaviate: `vector_index_type: hnsw`, `pq.compression: true` per trade‑off memoria/latency.
 - PgVector: `ivfflat lists=100` (tuna in base alla dimensione).
 
 ### 5.4 Chunking & ingest
+
 - **Lunghezza**: 300–800 token, **overlap** 10–15%.
 - Normalizza: rimuovi boilerplate, estrai tabelle, Markdown/HTML → testo pulito.
 - **Doc ID** stabile per lineage e citazioni.
@@ -133,13 +152,15 @@ with mlflow.start_run():
 ---
 
 ## 6) Prompt Management (versioning, A/B, canary)
+
 - Prompt **template** (Jinja/Handlebars) con **parametri** e **guardie** (es. max token).
 - **Versioning** in Git: `prompts/<task>/<name>@v<semver>.prompt`.
 - **A/B**: distribuzioni pesate (50/50, 80/20). **Canary** 5–10% su nuove versioni.
 - **Prompt Router**: seleziona la variante in base a `tenant|locale|persona|traffic`.
 - **Telemetry**: log di variante, outcome, costi e latenza → analisi uplift.
 
-**Esempio router (YAML)**
+### Esempio router (YAML)
+
 ```yaml
 task: answer_with_citations
 variants:
@@ -154,6 +175,7 @@ variants:
 ---
 
 ## 7) Agent Evaluation
+
 - **Harness di scenari**: set di task realistici (CRUD conoscenza, multi‑hop, tool‑use, richieste ambigue).
 - **Tool ablation**: esegui gli stessi scenari **senza** uno strumento (o con *fail injection*) per misurare impatto.
 - **Replay**: riproduci conversazioni reali (sanitizzate) con **seed deterministici**.
@@ -165,6 +187,7 @@ variants:
 ---
 
 ## 8) Guardrail & Safety
+
 - **PII scrubber** (regex + NER): sanifica input/log; *hash pseudonimi*.
 - **Output schema**: valida JSON con **JSON Schema**; *re‑ask* automatico se invalido.
 - **Content policy**: filtri categorie (toxicity/NSFW/PHI); blocklist/allowlist fonti.
@@ -175,12 +198,14 @@ variants:
 ---
 
 ## 9) Pipeline & CI/CD (automazioni)
+
 - **Data & Embeddings** (notte o su evento): ETL → validate (Great Expectations) → embed → upsert VS → report.
 - **Model training/eval**: train → eval (RAGAS/TruLens) → log MLflow → gate → register.
 - **Serving**: build immagine (vLLM/TGI) → firma (Cosign) → deploy Staging → canary → prod.
 - **Prompt update**: PR con test/golden → canary 10% → promozione.
 
-**Estratto GitHub Actions — Data & Embeddings**
+### Estratto GitHub Actions — Data & Embeddings
+
 ```yaml
 jobs:
   embeddings:
@@ -199,6 +224,7 @@ jobs:
 ---
 
 ## 10) Monitoring & SLO
+
 - **SLO** suggeriti:
   - **Availability** (99.5%+) endpoint /health e /v1/chat
   - **Latency p95**: ≤ 1200 ms (RAG retrieval); ≤ 2500 ms (LLM gen) *per tenant*
@@ -214,6 +240,7 @@ jobs:
 ## 11) Snippet & reference
 
 ### 11.1 Qdrant (docker‑compose)
+
 ```yaml
 version: "3.8"
 services:
@@ -224,6 +251,7 @@ services:
 ```
 
 ### 11.2 vLLM (K8s deployment, estratto)
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -244,6 +272,7 @@ spec:
 ```
 
 ### 11.3 JSON Schema (output enforcement)
+
 ```json
 {
   "type": "object",
@@ -261,6 +290,7 @@ spec:
 ```
 
 ### 11.4 Prompt Card (template)
+
 ```markdown
 # Prompt Card — answer_with_citations@v1.2
 - **Goal**: risposta aderente con citazioni
@@ -275,6 +305,7 @@ spec:
 ---
 
 ## 12) Checklist di adozione (DoD MLOps/LLMOps)
+
 - Dati **versionati** (DVC/LakeFS) + **dataset card** + checksum.
 - **Model registry** attivo (MLflow): signature, metriche, stage.
 - **Serving**: gateway con routing/canary, quota per tenant, telemetria.
@@ -288,6 +319,7 @@ spec:
 ---
 
 ## 13) Struttura consigliata nel repo
+
 ```text
 mlops/
 ├─ pipelines/

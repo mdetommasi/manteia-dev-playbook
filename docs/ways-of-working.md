@@ -13,7 +13,8 @@ Linee guida pratiche per organizzare lavoro, processi e qualità del team Mantei
 - **Sprint Review (45–60')**: demo end‑to‑end, metriche, feedback stakeholder.
 - **Retrospective (45–60')**: miglioramenti concreti con owner e due date (Start/Stop/Continue, 5 Whys).
 
-**Time‑boxing & regole**
+### Time‑boxing & regole
+
 - Hard stop, agenda pre‑condivisa, note in repo (cartella `docs/cerimonie`).
 - Ogni meeting chiude con decisioni/owner/next step (no “TODO” vaghi).
 
@@ -37,13 +38,13 @@ Linee guida pratiche per organizzare lavoro, processi e qualità del team Mantei
 - **Sprint Backlog**: selezione basata su capacity reale (ferie, on‑call, ecc.).
 - **Board Kanban**: colonne minime `Todo → In Progress → In Review → In Test → Done`, WIP limit su “In Progress”.
 - **DoR (Definition of Ready)** — una story è pronta se:
-	- Obiettivo e valore utente chiari
-	- AC elencati e testabili
-  	- Dipendenze note, dati disponibili o simulabili
-  	- Stima (story points) assegnata
-  	- Impatti sicurezza/PII/infra dichiarati
+  - Obiettivo e valore utente chiari
+  - AC elencati e testabili
+  - Dipendenze note, dati disponibili o simulabili
+  - Stima (story points) assegnata
+  - Impatti sicurezza/PII/infra dichiarati
 - **DoD (Definition of Done)** — una story è *Done* se:
-  	- Lint/format **OK** (pre‑commit), **type‑check OK**
+  - Lint/format **OK** (pre‑commit), **type‑check OK**
   - **Test**: unit + integrazione (e2e se percorso critico); **coverage ≥ 80%** quando sensato
   - **Docs** aggiornate (README/CHANGELOG); **ADR** per decisioni chiave
   - **Observability**: metriche/log/traces minime e allarmi base
@@ -61,7 +62,8 @@ Linee guida pratiche per organizzare lavoro, processi e qualità del team Mantei
 - **Quality gates** obbligatori: lint, types, unit, integrazione chiave, security scans, build container.
 - **Merge**: `squash` con *conventional commit* (`feat:`, `fix:`, `chore:`).
 
-**Template PR (estratto)**
+### Template PR (estratto)
+
 ```md
 ## Scopo
 Breve descrizione del valore/risultato.
@@ -91,7 +93,8 @@ Breve descrizione del valore/risultato.
 - **Stima**: Story Points (Fibonacci 1,2,3,5,8,13). Spike **senza** punti, solo tempo.
 - **Priorità**: `P0` (bloccante) → `P3` (nice‑to‑have).
 
-**Label suggerite**
+### Label suggerite
+
 - `type:feature|bug|debt|spike`, `area:api|ui|rag|mlops|data`, `priority:P0|P1|P2|P3`, `risk:low|med|high`
 
 ---
@@ -101,7 +104,8 @@ Breve descrizione del valore/risultato.
 - Gherkin/BDD semplice (Given/When/Then) **o** checklist puntuale.
 - Per AI/RAG: definire *metriche minime* (es. **faithfulness**, **latency p95**, **token cost**).
 
-**Esempio AC**
+### Esempio AC
+
 ```md
 Given un documento sorgente
 When interrogo l’assistente con una domanda coperta dal documento
@@ -151,7 +155,8 @@ And nessun PII viene esposto nei log
 
 ## 11) Esempi pratici
 
-**Template story (estratto)**
+### Template story (estratto)
+
 ```md
 ### User Story
 Come <ruolo> voglio <bisogno> così da <valore>.
@@ -174,7 +179,8 @@ Come <ruolo> voglio <bisogno> così da <valore>.
 - Permessi/secret: …
 ```
 
-**Esempio DoR/DoD (checklist pronta)**
+ Esempio DoR/DoD (checklist pronta)
+
 ```md
 ## DoR
 - [ ] AC chiari e testabili

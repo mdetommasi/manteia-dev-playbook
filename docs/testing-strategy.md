@@ -7,16 +7,18 @@ Questa sezione definisce processi, strumenti e pratiche per garantire qualità e
 ## Piramide di test
 
 ### 1) Unit (~70%) — veloci e deterministici
+
 **Obiettivo:** verificare funzioni pure, adapter dei tool, parsing/formatting, rendering di template di prompt.
 
-**Stack consigliato**
+#### Stack consigliato
 
-- PyTest (fixture, parametrizzazione, marker): https://docs.pytest.org/ 
+- PyTest (fixture, parametrizzazione, marker): <https://docs.pytest.org/>
 - JSON Schema / pydantic per validare strutture dati (anche output LLM):  
-  	- jsonschema (Python): https://python-jsonschema.readthedocs.io/  
-  	- Pydantic v2: https://docs.pydantic.dev/
+  - jsonschema (Python): <https://python-jsonschema.readthedocs.io/>  
+  - Pydantic v2: <https://docs.pydantic.dev/>
 
-**Pattern essenziale (pytest + jsonschema)**
+#### Pattern essenziale (pytest + jsonschema)
+
 ```python
 # tests/test_prompt_rendering.py
 import pytest
@@ -37,16 +39,18 @@ def test_prompt_json_schema(value):
 ---
 
 ### 2) Integration (~20%) — componenti insieme (DB, vector store, API)
+
 **Obiettivo:** verificare i confini tra componenti: retriever+DB, chiamate HTTP, job ETL.
 
-**Stack consigliato**
+#### Stack consigliato
 
 - Testcontainers (avvia DB/servizi reali in container durante i test):  
-  	- Python: https://testcontainers-python.readthedocs.io/
-- VCR.py (registra/riproduce HTTP in “cassette” deterministiche): https://vcrpy.readthedocs.io/
-- Great Expectations (validazione schema/qualità dati prima del training/embedding): https://docs.greatexpectations.io/
+  - Python: <https://testcontainers-python.readthedocs.io/>
+- VCR.py (registra/riproduce HTTP in “cassette” deterministiche): <https://vcrpy.readthedocs.io/>
+- Great Expectations (validazione schema/qualità dati prima del training/embedding): <https://docs.greatexpectations.io/>
 
-**Esempio (Testcontainers + Postgres)**
+#### Esempio (Testcontainers + Postgres)
+
 ```python
 # tests/test_repo_pg.py
 import psycopg2
@@ -62,7 +66,8 @@ def test_repo_query():
         conn.close()
 ```
 
-**Mock HTTP idempotente (VCR.py)**
+#### Mock HTTP idempotente (VCR.py)
+
 ```python
 # tests/test_external_api.py
 import requests
@@ -77,30 +82,33 @@ def test_external_search():
 ---
 
 ### 3) E2E (~10%) — user journey e flussi agentici
+
 **Obiettivo:** convalidare i percorsi critici (es. “query → retrieval → sintesi → risposta con citazioni”).
 
-**Stack consigliato**
+#### Stack consigliato
 
-- Playwright (browser/API test, headless su CI, ottimo per app web): https://playwright.dev/python/
-- OpenTelemetry (tracing di tool-calls, latenza, token e step ReAct durante gli E2E): https://opentelemetry.io/docs/
+- Playwright (browser/API test, headless su CI, ottimo per app web): <https://playwright.dev/python/>
+- OpenTelemetry (tracing di tool-calls, latenza, token e step ReAct durante gli E2E): <https://opentelemetry.io/docs/>
 
 ---
 
 ## Test specifici per LLM & Agent
 
 ### A) Golden tests (snapshot/golden-master)
+
 **Idea:** fissare input e output attesi (con tolleranze) per template o classificatori.  
 **Strumenti:**
 
 - PyTest + snapshot/approval testing (diversi plugin)  
-- promptfoo (runner CLI per suite di prompt con oracle/score): https://www.promptfoo.dev/docs/
+- promptfoo (runner CLI per suite di prompt con oracle/score): <https://www.promptfoo.dev/docs/>
 
 ### B) Schema tests (risposte strutturate)
+
 **Idea:** il modello deve restituire JSON conforme a schema (tipi, campi obbligatori), con eventuale “re-ask” automatico.  
 **Strumenti:**
 
-- jsonschema: https://python-jsonschema.readthedocs.io/
-- Guardrails (validatori semantici, schema-first, re-ask): https://www.guardrailsai.com/
+- jsonschema: <https://python-jsonschema.readthedocs.io/>
+- Guardrails (validatori semantici, schema-first, re-ask): <https://www.guardrailsai.com/>
 
 ```python
 from jsonschema import validate
@@ -116,18 +124,20 @@ def assert_llm_json(resp: dict):
 ```
 
 ### C) Adversarial / sicurezza
+
 **Obiettivo:** difendersi da prompt injection, disclosure di PII/system prompt, eccessiva agency.  
 **Riferimenti:**
 
-- OWASP Top 10 for LLM Applications: https://owasp.org/www-project-top-10-for-large-language-model-applications/
-- promptfoo red-team (categorie attacchi pronte): https://www.promptfoo.dev/docs/red-team/
+- OWASP Top 10 for LLM Applications: <https://owasp.org/www-project-top-10-for-large-language-model-applications/>
+- promptfoo red-team (categorie attacchi pronte): <https://www.promptfoo.dev/docs/red-team/>
 
 ### D) Eval quantitativa RAG/Agent
+
 **Obiettivo:** misurare faithfulness/grounding, rilevanza, somiglianza, latenza e costi.  
 **Strumenti:**
 
-- RAGAS (metriche RAG: faithfulness, answer relevancy, context recall, ecc.): https://docs.ragas.io/
-- TruLens (eval + tracing catene/agent, integrabile con diversi framework): https://www.trulens.org/
+- RAGAS (metriche RAG: faithfulness, answer relevancy, context recall, ecc.): <https://docs.ragas.io/>
+- TruLens (eval + tracing catene/agent, integrabile con diversi framework): <https://www.trulens.org/>
 
 ```python
 # pseudo: calcolo metriche RAGAS su un dataset Q/A con contesti
@@ -206,34 +216,35 @@ jobs:
 ## Definition of Done — Checklist (feature AI)
 
 - **Unit**
-  	- Test ≥ 1 per funzione/adapter critico
-  	- Output LLM validato via **JSON Schema** / **pydantic**
+  - Test ≥ 1 per funzione/adapter critico
+  - Output LLM validato via **JSON Schema** / **pydantic**
 - **Integration**
-  	- Retriever ↔ Vector store testato con **Testcontainers**
-  	- HTTP esterno stabilizzato con **VCR.py**
+  - Retriever ↔ Vector store testato con **Testcontainers**
+  - HTTP esterno stabilizzato con **VCR.py**
 - **E2E**
-  	- 1 scenario “happy path” con **Playwright**
-  	- **OpenTelemetry** attivo per tracing su step/strumenti agentici
+  - 1 scenario “happy path” con **Playwright**
+  - **OpenTelemetry** attivo per tracing su step/strumenti agentici
 - **LLM**
-  	- **Golden** + **adversarial base** (prompt injection) + 1 run **RAGAS/TruLens** su subset
+  - **Golden** + **adversarial base** (prompt injection) + 1 run **RAGAS/TruLens** su subset
 - **Data**
-  	- **Great Expectations** su colonne chiave prima dell’indicizzazione
+  - **Great Expectations** su colonne chiave prima dell’indicizzazione
 - **CI/CD**
-  	- Job separati (unit/integration/e2e/llm_eval) e report pubblicati come artifact
+  - Job separati (unit/integration/e2e/llm_eval) e report pubblicati come artifact
 
 ---
 
 ### Riferimenti rapidi
-- PyTest: https://docs.pytest.org/  
-- jsonschema: https://python-jsonschema.readthedocs.io/  
-- Pydantic: https://docs.pydantic.dev/  
-- Testcontainers (Python): https://testcontainers-python.readthedocs.io/  
-- VCR.py: https://vcrpy.readthedocs.io/  
-- Great Expectations: https://docs.greatexpectations.io/  
-- Playwright (Python): https://playwright.dev/python/  
-- OpenTelemetry: https://opentelemetry.io/docs/  
-- promptfoo: https://www.promptfoo.dev/docs/  
-- Guardrails: https://www.guardrailsai.com/  
-- RAGAS: https://docs.ragas.io/  
-- TruLens: https://www.trulens.org/  
-- OWASP Top 10 for LLM: https://owasp.org/www-project-top-10-for-large-language-model-applications/
+
+- PyTest: <https://docs.pytest.org/>  
+- jsonschema: <https://python-jsonschema.readthedocs.io/>  
+- Pydantic: <https://docs.pydantic.dev/>  
+- Testcontainers (Python): <https://testcontainers-python.readthedocs.io/>  
+- VCR.py: <https://vcrpy.readthedocs.io/>  
+- Great Expectations: <https://docs.greatexpectations.io/>  
+- Playwright (Python): <https://playwright.dev/python/>  
+- OpenTelemetry: <https://opentelemetry.io/docs/>  
+- promptfoo: <https://www.promptfoo.dev/docs/>  
+- Guardrails: <https://www.guardrailsai.com/>  
+- RAGAS: <https://docs.ragas.io/>  
+- TruLens: <https://www.trulens.org/>  
+- OWASP Top 10 for LLM: <https://owasp.org/www-project-top-10-for-large-language-model-applications/>

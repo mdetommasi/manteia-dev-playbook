@@ -6,7 +6,6 @@
 - Fare: primo ticket “Good first issue”, aprire 1 PR
 - Shadowing: 1 sprint con pair programming
 
-
 # Onboarding Checklist — New Joiner (Manteia AI)
 
 Benvenuta/o! Questa checklist ti guida nei **primi 10–15 giorni**, così da renderti produttiva/o in fretta e in sicurezza.
@@ -29,15 +28,15 @@ Benvenuta/o! Questa checklist ti guida nei **primi 10–15 giorni**, così da re
 - [ ] **GitHub org** (repo privati, Projects, wiki)
 - [ ] **CI** (GitHub Actions / runner), permessi minimi
 - [ ] **Artifact Registry**:
-    - [ ] Container (es. GHCR o ECR)
-    - [ ] Pacchetti (Python wheel, npm)
-    - [ ] **MLflow** Model Registry (lettura/scrittura)
-    - [ ] **DVC** remote (dataset snapshot)
+  - [ ] Container (es. GHCR o ECR)
+  - [ ] Pacchetti (Python wheel, npm)
+  - [ ] **MLflow** Model Registry (lettura/scrittura)
+  - [ ] **DVC** remote (dataset snapshot)
 - [ ] **Vault / Secret Manager** (policy *least privilege*)
 - [ ] **Dashboards** di osservabilità:
-    - [ ] Grafana (metriche, SLO/SLI)
-    - [ ] Loki/Kibana (log)
-    - [ ] Langfuse/Phoenix (LLM traces)
+  - [ ] Grafana (metriche, SLO/SLI)
+  - [ ] Loki/Kibana (log)
+  - [ ] Langfuse/Phoenix (LLM traces)
 - [ ] **Ticketing/Boards** (GitHub Projects/Jira) con i template
 
 > Se qualcosa manca, apri un ticket *Access Request* (template in `.github/ISSUE_TEMPLATE`).
@@ -47,6 +46,7 @@ Benvenuta/o! Questa checklist ti guida nei **primi 10–15 giorni**, così da re
 ## 2) Dev Environment (Day 1)
 
 ### 2.1 Requisiti base
+
 - [ ] **Git** (commit signing consigliato)
 - [ ] **Python 3.11** (pyenv o sistema), **Node 20** (nvm), **Make**
 - [ ] **Docker** (o Podman) funzionante (`docker ps`)
@@ -54,6 +54,7 @@ Benvenuta/o! Questa checklist ti guida nei **primi 10–15 giorni**, così da re
 - [ ] **SSH keys** o **HTTPS + token** configurati
 
 ### 2.2 Setup rapido (Unix/macOS; adatta per Windows)
+
 ```bash
 # Python
 pyenv install -s 3.11.9 && pyenv local 3.11.9
@@ -91,6 +92,7 @@ export MLFLOW_TRACKING_URI=<url>
 - [ ] **Blueprint** (RAG/Agent/MCP) → `docs/blueprints/`
 
 Facoltativo: avvia la doc localmente
+
 ```bash
 pip install mkdocs mkdocs-material
 mkdocs serve  # http://127.0.0.1:8000
@@ -102,16 +104,17 @@ mkdocs serve  # http://127.0.0.1:8000
 
 - [ ] Prendi un ticket **“Good First Issue”** (label `good first issue`) dal board.
 - [ ] Segui i **template** PR/Issue (`.github/`):
-    - PR **piccola** (200–400 LOC), descrizione con *why/what/how*
-    - Allegare test e screenshot/log quando utile
+  - PR **piccola** (200–400 LOC), descrizione con *why/what/how*
+  - Allegare test e screenshot/log quando utile
 - [ ] Rispetta **quality gates**:
-    - [ ] Lint/format (ruff, black / eslint, prettier)
-    - [ ] Type-check (mypy / tsc)
-    - [ ] Test `pytest`/`vitest` e **coverage** (≥ 80% quando sensato)
-    - [ ] Security scans (bandit, pip-audit/npm audit; trivy su container)
-    - [ ] Build container (se applicabile)
+  - [ ] Lint/format (ruff, black / eslint, prettier)
+  - [ ] Type-check (mypy / tsc)
+  - [ ] Test `pytest`/`vitest` e **coverage** (≥ 80% quando sensato)
+  - [ ] Security scans (bandit, pip-audit/npm audit; trivy su container)
+  - [ ] Build container (se applicabile)
 
-**Comandi tipici**
+### Comandi tipici
+
 ```bash
 pytest -q && coverage run -m pytest && coverage report -m
 ruff check . && black --check . && mypy src
@@ -151,8 +154,8 @@ npm run lint && npm run test --if-present
 
 - [ ] Join canali Slack: `#manteia-ai-eng`, `#squad-<nome>`
 - [ ] Meeting fissi (Europa/Roma):
-    - **Daily** 15’ (10:00) — blocchi e micro-commitment
-    - **Planning/Review/Retro/Refinement** a calendario
+  - **Daily** 15’ (10:00) — blocchi e micro-commitment
+  - **Planning/Review/Retro/Refinement** a calendario
 - [ ] *Thread-first*: condividi decisioni in **ADR** e link nelle PR
 
 ---
@@ -186,24 +189,28 @@ npm run lint && npm run test --if-present
 
 ## 10) Appendix — setup utile
 
-**Git (firma consigliata)**
+### Git (firma consigliata)
+
 ```bash
 git config --global user.name "<Nome Cognome>"
 git config --global user.email "<email@azienda.com>"
 git config --global commit.gpgsign true   # oppure ssh signing
 ```
 
-**Docker login (GHCR)**
+### Docker login (GHCR)
+
 ```bash
 echo $GITHUB_TOKEN | docker login ghcr.io -u <username> --password-stdin
 ```
 
-**Pre-commit (install globale)**
+### Pre-commit (install globale)
+
 ```bash
 pipx install pre-commit  # o pip install --user pre-commit
 ```
 
-**MkDocs (doc locale)**
+### MkDocs (doc locale)
+
 ```bash
 pip install mkdocs mkdocs-material && mkdocs serve
 ```
