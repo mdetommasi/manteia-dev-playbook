@@ -1,4 +1,5 @@
 # Manteia AI Engineering Playbook — v0.1
+
 **Data:** 2025-09-23
 
 Benvenuti nel playbook tecnico per il nuovo team AI di **Manteia**.  
@@ -7,11 +8,13 @@ Questo repository raccoglie linee guida, blueprint e template per costruire appl
 ---
 
 ## Obiettivi
+
 - Allineare team cross-funzionali (Dev, QA, UX, MLOps) su **processi e standard**.
 - Accelerare l’andata in produzione con **blueprint riusabili** e **policy** chiare.
 - Garantire **manutenibilità, robustezza, scalabilità** e **responsible AI**.
 
 ## Pubblico
+
 - **Developer & Tech Lead**: standard di coding, architetture, testing.
 - **QA/Tester**: strategia di test LLM/agent, E2E, qualità dati.
 - **UX**: linee guida di handoff, osservabilità UX, metriche.
@@ -66,11 +69,13 @@ Questo repository raccoglie linee guida, blueprint e template per costruire appl
 ## Come usare il playbook
 
 ### 1) Onboarding rapido
+
 - Segui **[onboarding-checklist.md](onboarding-checklist.md)**.
 - Configura pre-commit (ruff/black/mypy/eslint/prettier).
 - Esegui i test locali e verifica gli standard.
 
 ### 2) Avvio documentazione locale (MkDocs)
+
 ```bash
 pip install mkdocs mkdocs-material
 mkdocs serve
@@ -78,12 +83,14 @@ mkdocs serve
 ```
 
 ### 3) Crea un progetto da template
+
 - Consulta **[template/project-structure.md](template/project-structure.md)**.
 - Clona lo scheletro, imposta `<package>`/`<project_name>`, abilita CI.
 
 ---
 
 ## Ways of Working (Scrum-based)
+
 - **Eventi:** Sprint (2 settimane), Daily (15'), Planning, Review, Retro, Refinement.
 - **Artefatti:** Product Backlog, Sprint Backlog, DoR/DoD.
 - **Branching:** trunk-based + feature branches (`feature/...`, `fix/...`, `chore/...`).
@@ -95,6 +102,7 @@ mkdocs serve
 ---
 
 ## Strategia di Test
+
 - **Piramide:** Unit (~70%), Integration (~20%), E2E (~10%).
 - **LLM/Agent:** golden tests, schema/guardrails, adversarial (prompt injection/PII), eval (RAGAS/TruLens).
 - **Tooling:** pytest/coverage, testcontainers, VCR.py, Playwright, OpenTelemetry.
@@ -103,6 +111,7 @@ mkdocs serve
 ---
 
 ## CI/CD
+
 - **CI (su PR):** lint/format (ruff, black, eslint), type-check (mypy/tsc), unit/integration test (pytest/vitest), coverage; security scans (bandit, pip-audit/npm audit, trivy); build immagine Docker.
 - **CD:** staging automatica su merge in `main`; canary/blue-green; migrazioni DB con rollback; feature flags.
 - **Artifact registry:** container, wheel/npm, dataset snapshot (DVC), modelli (MLflow).
@@ -111,6 +120,7 @@ mkdocs serve
 ---
 
 ## MLOps / LLMOps
+
 - **Data versioning:** DVC/LakeFS, dataset card.
 - **Model registry:** MLflow con stage e metriche.
 - **Serving LLM OSS:** vLLM/TGI/Ollama; throttling/quota.
@@ -121,6 +131,7 @@ mkdocs serve
 ---
 
 ## Security, Privacy & Governance
+
 - **Segreti:** vault; mai in codice/CI logs; OIDC per deploy.
 - **PII:** classificazione, minimizzazione, masking in log.
 - **Supply-chain:** SBOM (Syft), scans CVE (Grype/TruVy), firma immagini (Cosign).
@@ -131,6 +142,7 @@ mkdocs serve
 ---
 
 ## Blueprint architetturali
+
 - **Agentic RAG + ReAct:** coordinator agent, retriever ibrido, tools via MCP, osservabilità end-to-end.  
   → **[blueprints/agentic-arch-blueprint.md](blueprints/agentic-arch-blueprint.md)**
 - **MCP Playbook:** contratti, sicurezza, test di handshake.  
@@ -141,6 +153,7 @@ mkdocs serve
 ---
 
 ## Decisioni architetturali (ADR)
+
 - Usa il **template ADR** per ogni decisione chiave (modello, vector store, protocolli).  
   → **[templates/ADR-template.md](templates/ADR-template.md)**  
 - Stato, contesto, decisione, conseguenze, alternative.
@@ -148,6 +161,7 @@ mkdocs serve
 ---
 
 ## Contribuire
+
 1. Crea una branch `feature/...` e apri una PR piccola.
 2. Assicurati che **CI sia verde** e aggiorna **docs/ADR** se necessario.
 3. Segui i **template PR/Issue** in `.github/`.
@@ -156,12 +170,14 @@ mkdocs serve
 ---
 
 ## Incident Response
+
 - Runbook con triage, mitigazione, diagnosi, risoluzione e postmortem.  
   → **[runbooks/incident-response.md](runbooks/incident-response.md)**
 
 ---
 
 ## Roadmap (alto livello)
+
 - v0.2: cookiecutter progetto agentic-RAG, dashboard SLO/SLI di esempio.
 - v0.3: harness di valutazione automatica per agent, red-team suite ampliata.
 - v1.0: guida di migrazione multi-tenant e best practice di costo per LLM serving.
@@ -169,12 +185,14 @@ mkdocs serve
 ---
 
 ## Licenza e note
+
 - Licenza interna Manteia (o specificare licenza OSS se pubblico).
 - I diagrammi e i template sono esempi: **adattare** ai requisiti di servizio e compliance locali.
 
 ---
 
 ## Contatti
+
 - **Owner Playbook:** _Maurizio De Tommasi_ / Tech Lead di riferimento  
 - **Canale interno:** `#manteia-ai-eng` (annunci, domande, proposte)
 - **Contribuzioni:** apri una issue/PR seguendo i template in `.github/`
